@@ -1,0 +1,3 @@
+rootProject.name = 'discoList'
+
+include ':app'
