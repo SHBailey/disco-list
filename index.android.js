@@ -1,36 +1,76 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { TabNavigator } from 'react-navigation'
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View,
+  Button
+} from 'react-native'
 
-export default class discoList extends Component {
+
+export class HomeScreen extends Component {
+  static navigationOptions = {
+    tabBarLabel: 'Home Disco List!',
+    showIcon: true,
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('./discoball.png')}
+        style={ [ styles.icon, { tintColor } ] }
+      />
+    )
+  }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+         Hi Morty!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.android.js
+          Welcome to Disco list!
         </Text>
         <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
+          (it's a working title)
         </Text>
+        <Button
+          onPress={() => this.props.navigation.navigate('Profile')}
+          title="Go to the profile screen!"
+        />
       </View>
-    );
+    )
   }
 }
 
+export class ProfileScreen extends Component {
+  static navigationOptions = {
+    tabBarLabel: 'Notifications',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('./discoball.png')}
+      />
+    )
+  }
+  render() {
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          This is the profile screen!
+        </Text>
+        <Text style={styles.instructions}>
+          This will list ALL OF THE DISCOS
+        </Text>
+        <Text style={styles.instructions}>
+          (it's a working title)
+        </Text>
+        <Button
+          onPress={() => this.props.navigation.goBack()}
+          title="Go back home"
+        />
+      </View>
+    )
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -39,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 30,
     textAlign: 'center',
     margin: 10,
   },
@@ -48,6 +88,11 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
+})
 
-AppRegistry.registerComponent('discoList', () => discoList);
+const App = TabNavigator({
+  Home: { screen: HomeScreen },
+  Profile: { screen: ProfileScreen },
+})
+
+AppRegistry.registerComponent('discoList', () => App)
