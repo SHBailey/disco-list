@@ -5,14 +5,13 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Image
 } from 'react-native'
 
 
 export class HomeScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Home Disco List!',
-    showIcon: true,
     tabBarIcon: ({ tintColor }) => (
       <Image
         source={require('./discoball.png')}
@@ -43,10 +42,10 @@ export class HomeScreen extends Component {
 
 export class ProfileScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Notifications',
     tabBarIcon: ({ tintColor }) => (
       <Image
         source={require('./discoball.png')}
+        style={ [ styles.icon, { tintColor } ] }
       />
     )
   }
@@ -88,11 +87,23 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  icon: {
+    height: 20,
+    width: 20
+  }
 })
 
 const App = TabNavigator({
   Home: { screen: HomeScreen },
   Profile: { screen: ProfileScreen },
+}, {
+  tabBarOptions: {
+    showIcon: true,
+    showLabel: false,
+    iconStyle: { height: 20, width: 20 },
+    style: { backgroundColor: '#8d47bc' }
+  }
 })
+
 
 AppRegistry.registerComponent('discoList', () => App)
