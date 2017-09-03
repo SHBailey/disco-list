@@ -101,7 +101,7 @@ const App = TabNavigator({
     showIcon: true,
     showLabel: false,
     iconStyle: { height: 20, width: 20 },
-    style: { backgroundColor: '#8d47bc' }
+    style: { backgroundColor: '#8d47bc'}
   }
 })
 
