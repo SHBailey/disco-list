@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
+import NewUserScreen from './app/containers/newUserLogin.js'
 import {
   AppRegistry,
   StyleSheet,
@@ -20,6 +21,7 @@ export class HomeScreen extends Component {
     )
   }
   render() {
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -32,8 +34,12 @@ export class HomeScreen extends Component {
           (it's a working title)
         </Text>
         <Button
-          onPress={() => this.props.navigation.navigate('Profile')}
+          onPress={() => navigate('Profile')}
           title="Go to the profile screen!"
+        />
+        <Button
+          onPress={() => navigate('NewUserLogin')}
+        title="go to the new user screen!"
         />
       </View>
     )
@@ -93,7 +99,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const App = TabNavigator({
+const MainScreen = TabNavigator({
   Home: { screen: HomeScreen },
   Profile: { screen: ProfileScreen },
 }, {
@@ -103,6 +109,11 @@ const App = TabNavigator({
     iconStyle: { height: 20, width: 20 },
     style: { backgroundColor: '#8d47bc'}
   }
+})
+
+const App = StackNavigator({
+  Home: { screen: MainScreen },
+  NewUserLogin: { screen: NewUserScreen }
 })
 
 
