@@ -1,6 +1,7 @@
+// @flow
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, TextInput, View, Button } from 'react-native'
+import { Text, ScrollView, StyleSheet, TextInput, View, Button } from 'react-native'
 
 export default class NewUserLogin extends React.Component {
   constructor(props){
@@ -10,7 +11,8 @@ export default class NewUserLogin extends React.Component {
       password: 'password',
       repeatPassword: 'repeatPassword',
       username: 'username',
-      fetching: false
+      fetching: false,
+      error: null,
     }
   }
 
@@ -21,7 +23,7 @@ export default class NewUserLogin extends React.Component {
     }
   }
 
-  _createUser = (userData)=> {
+  _createUser = (userData) => {
     this.setState({ fetching: true })
     const fetchOptions = { method: 'POST', body: JSON.stringify(userData) }
     fetch('localhost:4000', fetchOptions )
@@ -39,7 +41,7 @@ export default class NewUserLogin extends React.Component {
   _validateForm = (formData) => {
     switch (formData) {
         // username too short
-      case username.length < 4:
+      case formData.username.length < 4:
         return { valid: false, error: 'Username must be at least 4 characters!'}
         // passwords don't match
       case formData.password !== formData.repeatPassword:
@@ -61,23 +63,29 @@ export default class NewUserLogin extends React.Component {
 
   render () {
     return (
-      <View >
+      <ScrollView style={{padding: 20}}>
           <TextInput
             style={{width: '100%'}}
+            placeholder='password'
             onChange={this._updateFormState('password')}
-            label='password'
-            type='password'
+            secureTextEntry={true}
+            autoCorrect={false}
           />
           <TextInput
             onChange={this._updateFormState('repeatPassword')}
-            type='password'
-            label='verify password'
-        />
+            secureTextEntry={true}
+            autoCorrect={false}
+            placeholder='verify password'
+          />
           <TextInput
             onChange={this._updateFormState('username')}
-            type='user'
-        />
-        </View>
+            autoCorrect={false}
+            placeholder='username'
+          />
+          <Button onPress={this._submitForm} title='Create New Account'>
+          </Button>
+          {this.state.error && <Text>{this.state.error}</Text>}
+        </ScrollView>
     )
   }
 }
