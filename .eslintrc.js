@@ -1,4 +1,8 @@
 module.exports = {
-  "extends": "standard",
-  "presets": ["stage-1"]
+    "parser": "babel-eslint",
+    "rules": {
+        "strict": 0,
+        "react/prop-types": 0
+    },
+    "extends": ["standard", "standard-react"]
 }
